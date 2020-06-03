@@ -2,10 +2,10 @@
 #define NODE_HPP       
        
 struct Node {
-    int key_; //stored value
-    Node left_; //left child
-    Node right_; //right child
-    Node p_; //parent
+    int key = 0; //stored value
+    Node* left = nullptr; //left child
+    Node* right = nullptr; //right child
+    Node* p = nullptr; //parent
 }       
 
 #endif
