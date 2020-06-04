@@ -55,6 +55,21 @@ class BST{
         }
 
         //Print (outputs a .gv file in dot language) siehe Folien (auch leere Knoten zeichnen!)
+        void PrintBST () {
+            if (root_ == nullptr) {
+                return 0;
+            }
+            while (root_->left != nullptr) {
+                printf("%i -> %i", root_, root_->left);
+                PrintBST(root_->left);
+            }
+            printf("nili[shape=point];");
+            printf("%i -> %i", root_, nili);
+            while (root_->right != nullptr) {
+                PrintBST(root_->right);
+                printf("%i -> %i", root_, root_->right);
+            }
+        }
 
     private:
         Node* root_;
