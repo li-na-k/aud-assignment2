@@ -7,8 +7,26 @@ class BST{
         List ():
         root_ {nullptr}
         {}
-        //Search: Search, that returns either a pointer to the node that has a given key value or NIL if the Tree doesn’t contain such a node. Searching has complexity O(h) where h is the height of a Tree.
-        Node* search(int key) const;
+        /*Search: Search, that returns either a pointer to the node that has a given key value 
+        or NIL if the Tree doesn’t contain such a node. 
+        Searching has complexity O(h) where h is the height of a Tree.*/
+        Node* search(int key) const{
+            Node it = new Node{};
+            it = root_;
+            bool found = false;
+            while(found == false){
+                if(it == nullptr || it->key == key){
+                    return it;
+                    found = true;
+                }
+                else if(it->key < key){
+                    it = it->right;
+                }
+                else{
+                    it = it->left;
+                }
+            }
+        }
 
         //given a Tree or its Root, return a pointer to the node with the maximum and the minimum key, respectively the rightmost and the leftmost in the Tree. They both have complexity O(h).
         Node* minimum() const;
@@ -42,6 +60,7 @@ class BST{
                 }
             }
         }
+
         void remove (Node& it) {
             if (it->left == nullptr && it->right == nullptr) {
                 //1st case
