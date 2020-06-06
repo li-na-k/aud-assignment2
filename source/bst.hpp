@@ -32,11 +32,25 @@ class BST{
             }
         }
 
-        /*given a Tree or its Root, return a pointer to the node with the maximum and the minimum key, 
+        /* given a Tree or its Root, return a pointer to the node with the maximum and the minimum key,
         respectively the rightmost and the leftmost in the Tree. They both have complexity O(h).*/
-        Node* minimum() const;
-        Node* maximum() const;
-
+        Node* minimum () const {
+            Node* min = new Node{};
+            min = root_;
+            while (min->left != nullptr) {
+                min = min->left;
+            }
+            return min;
+        }
+    
+        Node* maximum() const {
+            Node* max = new Node{};
+            max = root_;
+            while (max->right != nullptr) {
+                max = max->right;
+            }
+            return max;
+        }
         /* Predecessor (complexity O(h)) of a node x returns the node with the maximum smaller key in the Tree (NIL if x is the minimum node).
         The predecessor of x is defined as the Maximum(x.left) if x.left 6= NIL or as the first ancestor reached from its right sub-tree.*/
         Node* predecessor(Node const& it);
@@ -82,7 +96,7 @@ class BST{
         //Print (outputs a .gv file in dot language) siehe Folien (auch leere Knoten zeichnen!)
         void PrintBST (Node* it) {
             int i = 0;
-            const char *path="/Users/linaklass/myfile.gv";
+            const char *path="/Users/klara/myfile.gv";
             std::ofstream myfile(path);
            
             if (root_ == nullptr) {
