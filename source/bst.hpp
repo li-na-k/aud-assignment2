@@ -1,17 +1,21 @@
 #ifndef BST_HPP 
 #define BST_HPP
+#include <iostream>
+#include <fstream>
 
 class BST{
     public:
         //constructor for initializing list
-        List ():
+        BST ():
         root_ {nullptr}
         {}
+
+        
         /*Search: Search, that returns either a pointer to the node that has a given key value 
         or NIL if the Tree doesn’t contain such a node. 
         Searching has complexity O(h) where h is the height of a Tree.*/
         Node* search(int key) const{
-            Node it = new Node{};
+            Node* it = new Node{};
             it = root_;
             bool found = false;
             while(found == false){
@@ -28,7 +32,8 @@ class BST{
             }
         }
 
-        //given a Tree or its Root, return a pointer to the node with the maximum and the minimum key, respectively the rightmost and the leftmost in the Tree. They both have complexity O(h).
+        /*given a Tree or its Root, return a pointer to the node with the maximum and the minimum key, 
+        respectively the rightmost and the leftmost in the Tree. They both have complexity O(h).*/
         Node* minimum() const;
         Node* maximum() const;
 
@@ -38,14 +43,15 @@ class BST{
 
         /* Successor (complexity O(h)) of a node x returns the node with the minimum bigger key in the Tree (NIL if x is the maximum node).
         The successor of x is defined as the Minimum(x.right) if x.right 6= NIL or as the first ancestor reached from its left sub-tree.*/
-        Node* successor(Node const& it);
+        Node* successor(Node* it);
 
         //TODO: Insert and Delete (node = root when function is called)
-        void insert (Node& node, Node& it) {
+        void insert (Node* node, Node* it) {
             if (root_ == nullptr) {
                 root_ = it;
             } else {
-                while (node->leftchild != nullptr && node->rightchild != nullptr) {
+                node = root_;
+                while (node->left != nullptr && node->right != nullptr) {
                     if (it->key < node->key) {
                         return insert (node->left, it);
                     }
@@ -61,7 +67,7 @@ class BST{
             }
         }
 
-        void remove (Node& it) {
+        void remove (Node* it) {
             if (it->left == nullptr && it->right == nullptr) {
                 //1st case
             } else if ((it->left == nullptr && it->right != nullptr) || (it->right == nullptr && it->left != nullptr)) {
@@ -74,26 +80,33 @@ class BST{
         }
 
         //Print (outputs a .gv file in dot language) siehe Folien (auch leere Knoten zeichnen!)
-        void PrintBST () {
+        void PrintBST (Node* it) {
+            int i = 0;
+            const char *path="/Users/linaklass/myfile.gv";
+            std::ofstream myfile(path);
+           
             if (root_ == nullptr) {
-                return 0;
+                //return 0;
             }
             while (root_->left != nullptr) {
-                printf("%i -> %i", root_, root_->left);
+                myfile << root_ << "->" << root_->left << std::endl;
                 PrintBST(root_->left);
             }
-            printf("nili[shape=point];");
-            printf("%i -> %i", root_, nili);
+            //printf("nili[shape=point];");
+            myfile << "nil" << i << "[shape=point];" << std::endl;
+            myfile << root_ << "-> nil" << i << std::endl;
+            i++;
             while (root_->right != nullptr) {
                 PrintBST(root_->right);
-                printf("%i -> %i", root_, root_->right);
+                myfile << root_ << "->" << root_->right << std::endl;
             }
+            myfile.close();
         }
 
     private:
         Node* root_;
 
 
-}
+};
 
 #endif

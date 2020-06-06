@@ -6,6 +6,6 @@ struct Node {
     Node* left = nullptr; //left child
     Node* right = nullptr; //right child
     Node* p = nullptr; //parent
-}       
+};       
 
 #endif
