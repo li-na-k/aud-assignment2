@@ -19,7 +19,7 @@ class BST{
             it = root_;
             bool found = false;
             while(found == false){
-                if(it == nullptr || it->key == key){
+                if(it == nullptr || it->key == key){ 
                     return it;
                     found = true;
                 }
@@ -67,6 +67,7 @@ class BST{
             }
         }
 
+
         void remove (Node* it) {
             if (it->left == nullptr && it->right == nullptr) {
                 //1st case
@@ -102,6 +103,39 @@ class BST{
             }
             myfile.close();
         }
+
+
+        //Print (outputs a .gv file in dot language) siehe Folien (auch leere Knoten zeichnen!)
+        void PrintBST2 (Node* root) {
+            const char *path="/Users/linaklass/myfile.gv";
+            std::ofstream myfile(path);
+
+            myfile << "digraph SampleBST{" << std::endl;
+
+            Node* it = root;
+            while(it != nullptr){
+                if(it->left != nullptr){
+                    myfile << it->key << "->" << it->left->key << ";" << std::endl;
+                    PrintBST2(it->left);
+                }
+                else{
+                    //NULLPOINTER MALEN
+                    if(it->right != nullptr){
+                        myfile << it->key << "->" << it->right->key << ";" << std::endl;
+                    }
+                    else{
+                    //NULLPOINTER MALEN
+                    }
+                PrintBST2(root->p->right); 
+                }
+            }
+            
+            myfile << "}" << std::endl;
+            myfile.close();
+        }
+
+
+                          
 
     private:
         Node* root_;
