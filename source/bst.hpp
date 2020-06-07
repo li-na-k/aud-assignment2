@@ -96,26 +96,32 @@ class BST{
         }
 
         //Print (outputs a .gv file in dot language) siehe Folien (auch leere Knoten zeichnen!)
-        void PrintBST (Node* it) {
+        void PrintBST () {
             int i = 0;
             const char *path="/Users/klara/myfile.gv";
             std::ofstream myfile(path);
+            Node* it = new Node{};
             it = root_;
+            
+            myfile << "digraph SampleBST{" << std::endl;
             
             if (it == nullptr) {
                 myfile << "nil0[shape=point];" << std::endl;
             }
             while (it->left != nullptr) {
                 myfile << it->key << "->" << it->left->key << std::endl;
-                PrintBST (it->left);
+                it = it->left;
             }
             myfile << "nil" << i << "[shape=point];" << std::endl;
             myfile << it->key << "-> nil" << i << std::endl;
             i++;
+            
             while (it->right != nullptr) {
-                PrintBST (it->right);
+                it = it->right;
                 myfile << it->key << "->" << it->right->key << std::endl;
             }
+            
+            myfile << "}" << std::endl;
             myfile.close();
         }
 
@@ -130,7 +136,7 @@ class BST{
             Node* it = new Node{};
             it = root_;
             while (it != nullptr) {
-                if (it->left != nullptr){
+                if (it->left != nullptr) {
                     myfile << it->key << "->" << it->left->key << ";" << std::endl;
                     PrintBST2 (it->left);
                 } else {
@@ -143,7 +149,6 @@ class BST{
                 PrintBST2(root->p->right); 
                 }
             }
-            
             myfile << "}" << std::endl;
             myfile.close();
         }

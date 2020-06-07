@@ -14,12 +14,13 @@ int main(){
     example1.insert(x);
     example1.insert(y);
     example1.insert(xy);
-    example1.insert(c);
+    //example1.insert(c);
+    
     //Node* result = new Node{};
     //result = example1.search(6);
     //std::cout << (example1.minimum())->key << std::endl;
     //std::cout << (example1.maximum())->key << std::endl;
-    //example1.PrintBST(x);
+    example1.PrintBST();
 /*
     Node* z = new Node{};
     z->key=7;
