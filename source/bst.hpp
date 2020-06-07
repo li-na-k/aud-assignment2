@@ -63,21 +63,33 @@ class BST{
         void insert (Node* new_node) {
             Node* it = new Node{};
             it = root_;
+
+            bool is_inserted = false;
+            bool found_place = false;
             //was passiert wennx.key = y.key??
             if (it == nullptr) {
                 root_ = new_node;
             } else {
-                while (it->left != nullptr && it->right != nullptr) {
-                    if (new_node->key < it->key) {
-                        it = it->left;
-                    } else if (new_node->key > it->key) {
-                        it = it->right;
+                while (!is_inserted) {
+                    while(!found_place){
+                        if (new_node->key < it->key && it->left != nullptr) {
+                            it = it->left;
+                        } else if (new_node->key > it->key && it->right != nullptr) {
+                            it = it->right;
+                        }
+                        else{
+                            found_place=true;
+                        }
                     }
-                }
                 if (new_node->key < it->key) {
                     it->left = new_node;
+                    new_node->p = it;
+                    is_inserted = true;
                 } else if (new_node->key > it->key) {
                     it->right = new_node;
+                    new_node->p = it;
+                    is_inserted = true;
+                }
                 }
             }
         }
@@ -137,8 +149,7 @@ class BST{
 
             Node* it = root_;
             int i = 0;
-
-            while(it != maximum()){
+            while(it->key <= maximum()->key){
                 while(it->left != nullptr){
                     myfile << it->key << "->" << it->left->key << ";" << std::endl;
                     it = it->left;
@@ -152,14 +163,16 @@ class BST{
                 if(it->right != nullptr){
                     myfile << it->key << "->" << it->right->key << ";" << std::endl;
                     it = it->right;
-                }
-                else{
+                } else {
                     //draw nullptr
                     myfile << "nil" << i << "[shape=point];" << std::endl;
                     myfile << it->key << "->" << "nil" << i << ";" << std::endl; 
                     i++;
-                    myfile << it->key << "TEST TEST" << std::endl; //Bug Test
-                    it = it->p->right;   
+                    if (it->key != maximum()->key) {
+                        it = it->p->p->right;   
+                    }else{
+                        break;
+                    }
                 } 
                  
             } 

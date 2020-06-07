@@ -4,21 +4,31 @@
 int main(){
     BST example1 {};
     Node* x = new Node{};
-    x->key=5;
+    x->key=10;
     Node* y = new Node{};
-    y->key=3;
+    y->key=6;
     Node* xy = new Node{};
-    xy->key=6;
+    xy->key=8;
     Node* c = new Node{};
-    c->key=4;
+    c->key=2;
+    Node* d = new Node{};
+    d->key=7;
+    Node* e = new Node{};
+    e->key=11;
+    Node* f = new Node{};
+    f->key=9;
     example1.insert(x);
     example1.insert(y);
     example1.insert(xy);
-    //example1.insert(c);
+    example1.insert(c);
+    example1.insert(d);
+    example1.insert(e);
+    example1.insert(f);
+
     
     //Node* result = new Node{};
     //result = example1.search(6);
-    //std::cout << (example1.minimum())->key << std::endl;
+    std::cout << (example1.minimum())->key << std::endl;
     //std::cout << (example1.maximum())->key << std::endl;
     //example1.PrintBST();
 /*
@@ -39,7 +49,7 @@ int main(){
     //Node* result = new Node{};
     //result = example1.search(6);*/
    
-    example1.PrintBST2();
+    //example1.PrintBST2();
 
     return 0;
 }
