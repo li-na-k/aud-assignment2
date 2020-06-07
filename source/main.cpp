@@ -49,7 +49,7 @@ int main(){
     //Node* result = new Node{};
     //result = example1.search(6);*/
    
-    //example1.PrintBST2();
+    example1.PrintBST3(x);
 
     return 0;
 }

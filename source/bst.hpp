@@ -3,6 +3,8 @@
 #include <iostream>
 #include <fstream>
 
+int i = 0;
+
 class BST{
     public:
         //constructor for initializing list
@@ -110,7 +112,7 @@ class BST{
         //Print (outputs a .gv file in dot language) siehe Folien (auch leere Knoten zeichnen!)
         void PrintBST () {
             int i = 0;
-            const char *path="/Users/klara/myfile.gv";
+            const char *path="/Users/linaklass/myfile.gv";
             std::ofstream myfile(path);
             Node* it = new Node{};
             it = root_;
@@ -168,17 +170,48 @@ class BST{
                     myfile << "nil" << i << "[shape=point];" << std::endl;
                     myfile << it->key << "->" << "nil" << i << ";" << std::endl; 
                     i++;
-                    if (it->key != maximum()->key) {
-                        it = it->p->p->right;   
-                    }else{
-                        break;
+                    while(it->right == nullptr){
+                        it = it->p;
+                    }
+                    it = it->right;
+                    if (it->key == maximum()->key) {
+                        break;   
                     }
                 } 
                  
             } 
             myfile << "}" << std::endl;
             myfile.close();
-        }          
+        }    
+
+        void PrintBST3 (Node* it) {
+            const char *path="/Users/linaklass/myfile.gv";
+            std::ofstream myfile(path);
+            myfile << "digraph SampleBST{" << std::endl;
+
+             if (it->left != nullptr) {
+                std::cout << it->key << "->" << it->left->key << ";" << std::endl; 
+                PrintBST3(it->left);
+                }
+            else{
+                std::cout << "nil" << i << "[shape=point];" << std::endl;
+                std::cout << it->key << "->" << "nil" << i << ";" << std::endl; 
+                i++;
+                }
+            if(it->right != nullptr) {
+                std::cout << it->key << "->" << it->right->key << ";" << std::endl;
+                PrintBST3(it->right);
+            }
+            else{
+                std::cout << "nil" << i << "[shape=point];" << std::endl;
+                std::cout << it->key << "->" << "nil" << i << ";" << std::endl; 
+                i++;
+            }
+           
+            myfile << "}" << std::endl;
+            myfile.close();
+
+        }      
 
 
                           
