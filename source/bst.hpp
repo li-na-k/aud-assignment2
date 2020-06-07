@@ -36,18 +36,18 @@ class BST{
 
         /* given a Tree or its Root, return a pointer to the node with the maximum and the minimum key,
         respectively the rightmost and the leftmost in the Tree. They both have complexity O(h).*/
-        Node* minimum () const {
+        Node* minimum (Node* root) const {
             Node* min = new Node{};
-            min = root_;
+            min = root;
             while (min->left != nullptr) {
                 min = min->left;
             }
             return min;
         }
     
-        Node* maximum() const {
+        Node* maximum(Node* root) const {
             Node* max = new Node{};
-            max = root_;
+            max = root;
             while (max->right != nullptr) {
                 max = max->right;
             }
@@ -55,11 +55,25 @@ class BST{
         }
         /* Predecessor (complexity O(h)) of a node x returns the node with the maximum smaller key in the Tree (NIL if x is the minimum node).
         The predecessor of x is defined as the Maximum(x.left) if x.left 6= NIL or as the first ancestor reached from its right sub-tree.*/
-        Node* predecessor(Node const& it);
+        Node* predecessor(Node* const x){
+            if(x->key == minimum(root_)->key){
+                return nullptr;
+            }
+            else{
+            return maximum(x->left);
+            }
+        }
 
         /* Successor (complexity O(h)) of a node x returns the node with the minimum bigger key in the Tree (NIL if x is the maximum node).
         The successor of x is defined as the Minimum(x.right) if x.right 6= NIL or as the first ancestor reached from its left sub-tree.*/
-        Node* successor(Node* it);
+        Node* successor(Node* x){
+            if(x->key == maximum(root_)->key){
+                return nullptr;
+            }
+            else{
+                return minimum(x->right);
+            }
+        }
 
         //TODO: Insert and Delete (node = root when function is called)
         void insert (Node* new_node) {
@@ -98,6 +112,7 @@ class BST{
 
 
         void remove (Node* it) {
+    
             if (it->left == nullptr && it->right == nullptr) {
                 //1st case
             } else if ((it->left == nullptr && it->right != nullptr) || (it->right == nullptr && it->left != nullptr)) {
@@ -141,48 +156,6 @@ class BST{
             myfile << "}" << std::endl;
             myfile.close();
         }
-
-        //Print (outputs a .gv file in dot language) siehe Folien (auch leere Knoten zeichnen!)
-        void PrintBST2 () {
-            const char *path="/Users/linaklass/myfile.gv";
-            std::ofstream myfile(path);
-
-            myfile << "digraph SampleBST{" << std::endl;
-
-            Node* it = root_;
-            int i = 0;
-            while(it->key <= maximum()->key){
-                while(it->left != nullptr){
-                    myfile << it->key << "->" << it->left->key << ";" << std::endl;
-                    it = it->left;
-                }
-
-                //draw nullptr
-                myfile << "nil" << i << "[shape=point];" << std::endl;
-                myfile << it->key << "->" << "nil" << i << ";" << std::endl; 
-                i++;
-
-                if(it->right != nullptr){
-                    myfile << it->key << "->" << it->right->key << ";" << std::endl;
-                    it = it->right;
-                } else {
-                    //draw nullptr
-                    myfile << "nil" << i << "[shape=point];" << std::endl;
-                    myfile << it->key << "->" << "nil" << i << ";" << std::endl; 
-                    i++;
-                    while(it->right == nullptr){
-                        it = it->p;
-                    }
-                    it = it->right;
-                    if (it->key == maximum()->key) {
-                        break;   
-                    }
-                } 
-                 
-            } 
-            myfile << "}" << std::endl;
-            myfile.close();
-        }    
 
         void PrintBST4 () {
             const char *path="/Users/linaklass/myfile.gv";

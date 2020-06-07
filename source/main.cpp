@@ -28,7 +28,7 @@ int main(){
     
     //Node* result = new Node{};
     //result = example1.search(6);
-    std::cout << (example1.minimum())->key << std::endl;
+    //std::cout << (example1.minimum())->key << std::endl; Das wieder rein
     //std::cout << (example1.maximum())->key << std::endl;
     //example1.PrintBST();
 /*
@@ -50,6 +50,8 @@ int main(){
     //result = example1.search(6);*/
    
     example1.PrintBST4();
+    std::cout<< example1.predecessor(x)->key << std::endl;
+    std::cout<< example1.successor(y)->key << std::endl;
 
     return 0;
 }
