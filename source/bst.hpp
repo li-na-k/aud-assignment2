@@ -184,32 +184,35 @@ class BST{
             myfile.close();
         }    
 
-        void PrintBST3 (Node* it) {
+        void PrintBST4 () {
             const char *path="/Users/linaklass/myfile.gv";
             std::ofstream myfile(path);
             myfile << "digraph SampleBST{" << std::endl;
 
+            PrintBST3(root_, myfile);
+
+            myfile << "}" << std::endl;
+            myfile.close();
+        }
+        void PrintBST3 (Node* it, std::ofstream& stream) {
              if (it->left != nullptr) {
-                std::cout << it->key << "->" << it->left->key << ";" << std::endl; 
-                PrintBST3(it->left);
+                stream << it->key << "->" << it->left->key << ";" << std::endl; 
+                PrintBST3(it->left, stream);
                 }
             else{
-                std::cout << "nil" << i << "[shape=point];" << std::endl;
-                std::cout << it->key << "->" << "nil" << i << ";" << std::endl; 
+                stream << "nil" << i << "[shape=point];" << std::endl;
+                stream << it->key << "->" << "nil" << i << ";" << std::endl; 
                 i++;
                 }
             if(it->right != nullptr) {
-                std::cout << it->key << "->" << it->right->key << ";" << std::endl;
-                PrintBST3(it->right);
+                stream << it->key << "->" << it->right->key << ";" << std::endl;
+                PrintBST3(it->right, stream);
             }
             else{
-                std::cout << "nil" << i << "[shape=point];" << std::endl;
-                std::cout << it->key << "->" << "nil" << i << ";" << std::endl; 
+                stream << "nil" << i << "[shape=point];" << std::endl;
+                stream << it->key << "->" << "nil" << i << ";" << std::endl; 
                 i++;
             }
-           
-            myfile << "}" << std::endl;
-            myfile.close();
 
         }      
 
