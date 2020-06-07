@@ -112,11 +112,42 @@ class BST{
 
 
         void remove (Node* it) {
-    
-            if (it->left == nullptr && it->right == nullptr) {
-                //1st case
+            //Case 1: if it is a leaf
+            if (it->left == nullptr && it->right == nullptr) { 
+                if(it == root_){ //if it is only node in the tree
+                    root_ = nullptr;
+                }
+                else{ 
+                    if (it->p->left == it){ //check whether it is the right or left child and kill connection to parent
+				        it->p->left = nullptr;
+                    } else {
+				        it->p->right = nullptr;
+                    }
+                }
+                delete it;
+            //Case 2: If x has only one child
             } else if ((it->left == nullptr && it->right != nullptr) || (it->right == nullptr && it->left != nullptr)) {
-                //2nd case
+                //find child Node
+                Node* child = it;
+                if(it->left == nullptr && it->right != nullptr){
+                    Node* child = (it->right);
+                }
+                else{
+                    Node* child = (it->left);
+                }
+
+                if (it == root_){ //check if it is root
+                    root_ = child;
+                }
+                else{
+                    if (it == it->p->left){ //again, check whether it is left or right child
+                        it->p->left = child;
+                    } 
+                    else {
+				        it->p->right = child;
+                    }
+                }
+                delete it;
             } else if (it->left != nullptr && it->right != nullptr && it->right->left == nullptr) {
                 //3rd case
             } else if (it->right != nullptr && it->right->right != nullptr && it->right->left != nullptr && successor(it)->left == nullptr) {
