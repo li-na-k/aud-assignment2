@@ -60,23 +60,24 @@ class BST{
         Node* successor(Node* it);
 
         //TODO: Insert and Delete (node = root when function is called)
-        void insert (Node* node, Node* it) {
-            if (root_ == nullptr) {
-                root_ = it;
+        void insert (Node* new_node) {
+            Node* it = new Node{};
+            it = root_;
+            //was passiert wennx.key = y.key??
+            if (it == nullptr) {
+                root_ = new_node;
             } else {
-                node = root_;
-                while (node->left != nullptr && node->right != nullptr) {
-                    if (it->key < node->key) {
-                        return insert (node->left, it);
-                    }
-                    if (it->key > node->key) {
-                        return insert (node->right, it);
+                while (it->left != nullptr && it->right != nullptr) {
+                    if (new_node->key < it->key) {
+                        it = it->left;
+                    } else if (new_node->key > it->key) {
+                        it = it->right;
                     }
                 }
-                if (it->key < node->key) {
-                    node->left = it;
-                } else if (it -> key > node->key) {
-                    node->right = it;
+                if (new_node->key < it->key) {
+                    it->left = new_node;
+                } else if (new_node->key > it->key) {
+                    it->right = new_node;
                 }
             }
         }
@@ -99,21 +100,21 @@ class BST{
             int i = 0;
             const char *path="/Users/klara/myfile.gv";
             std::ofstream myfile(path);
-           
-            if (root_ == nullptr) {
-                //return 0;
+            it = root_;
+            
+            if (it == nullptr) {
+                myfile << "nil0[shape=point];" << std::endl;
             }
-            while (root_->left != nullptr) {
-                myfile << root_ << "->" << root_->left << std::endl;
-                PrintBST(root_->left);
+            while (it->left != nullptr) {
+                myfile << it->key << "->" << it->left->key << std::endl;
+                PrintBST (it->left);
             }
-            //printf("nili[shape=point];");
             myfile << "nil" << i << "[shape=point];" << std::endl;
-            myfile << root_ << "-> nil" << i << std::endl;
+            myfile << it->key << "-> nil" << i << std::endl;
             i++;
-            while (root_->right != nullptr) {
-                PrintBST(root_->right);
-                myfile << root_ << "->" << root_->right << std::endl;
+            while (it->right != nullptr) {
+                PrintBST (it->right);
+                myfile << it->key << "->" << it->right->key << std::endl;
             }
             myfile.close();
         }
@@ -121,23 +122,22 @@ class BST{
 
         //Print (outputs a .gv file in dot language) siehe Folien (auch leere Knoten zeichnen!)
         void PrintBST2 (Node* root) {
-            const char *path="/Users/linaklass/myfile.gv";
+            //const char *path="/Users/linaklass/myfile.gv";
+            const char *path="/Users/klara/myfile.gv";
             std::ofstream myfile(path);
 
             myfile << "digraph SampleBST{" << std::endl;
-
-            Node* it = root;
-            while(it != nullptr){
-                if(it->left != nullptr){
+            Node* it = new Node{};
+            it = root_;
+            while (it != nullptr) {
+                if (it->left != nullptr){
                     myfile << it->key << "->" << it->left->key << ";" << std::endl;
-                    PrintBST2(it->left);
-                }
-                else{
+                    PrintBST2 (it->left);
+                } else {
                     //NULLPOINTER MALEN
-                    if(it->right != nullptr){
+                    if (it->right != nullptr) {
                         myfile << it->key << "->" << it->right->key << ";" << std::endl;
-                    }
-                    else{
+                    } else {
                     //NULLPOINTER MALEN
                     }
                 PrintBST2(root->p->right); 
