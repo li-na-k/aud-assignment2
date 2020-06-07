@@ -108,6 +108,7 @@ class BST{
             if (it == nullptr) {
                 myfile << "nil0[shape=point];" << std::endl;
             }
+            
             while (it->left != nullptr) {
                 myfile << it->key << "->" << it->left->key << std::endl;
                 it = it->left;
@@ -115,12 +116,14 @@ class BST{
             myfile << "nil" << i << "[shape=point];" << std::endl;
             myfile << it->key << "-> nil" << i << std::endl;
             i++;
-            
+            it = root_;
             while (it->right != nullptr) {
-                it = it->right;
                 myfile << it->key << "->" << it->right->key << std::endl;
+                it = it->right;
             }
-            
+            myfile << "nil" << i << "[shape=point];" << std::endl;
+            myfile << it->key << "-> nil" << i << std::endl;
+            i++;
             myfile << "}" << std::endl;
             myfile.close();
         }
