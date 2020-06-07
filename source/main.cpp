@@ -20,7 +20,7 @@ int main(){
     //result = example1.search(6);
     //std::cout << (example1.minimum())->key << std::endl;
     //std::cout << (example1.maximum())->key << std::endl;
-    example1.PrintBST();
+    //example1.PrintBST();
 /*
     Node* z = new Node{};
     z->key=7;
@@ -37,9 +37,9 @@ int main(){
     example1.insert(b, b);
     example1.insert(c, c);
     //Node* result = new Node{};
-    //result = example1.search(6);
+    //result = example1.search(6);*/
    
-    example1.PrintBST2(x);
-*/
+    example1.PrintBST2();
+
     return 0;
 }

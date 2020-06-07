@@ -128,33 +128,44 @@ class BST{
             myfile.close();
         }
 
-
         //Print (outputs a .gv file in dot language) siehe Folien (auch leere Knoten zeichnen!)
-        void PrintBST2 (Node* root) {
-            //const char *path="/Users/linaklass/myfile.gv";
-            const char *path="/Users/klara/myfile.gv";
+        void PrintBST2 () {
+            const char *path="/Users/linaklass/myfile.gv";
             std::ofstream myfile(path);
 
             myfile << "digraph SampleBST{" << std::endl;
-            Node* it = new Node{};
-            it = root_;
-            while (it != nullptr) {
-                if (it->left != nullptr) {
+
+            Node* it = root_;
+            int i = 0;
+
+            while(it != maximum()){
+                while(it->left != nullptr){
                     myfile << it->key << "->" << it->left->key << ";" << std::endl;
-                    PrintBST2 (it->left);
-                } else {
-                    //NULLPOINTER MALEN
-                    if (it->right != nullptr) {
-                        myfile << it->key << "->" << it->right->key << ";" << std::endl;
-                    } else {
-                    //NULLPOINTER MALEN
-                    }
-                PrintBST2(root->p->right); 
+                    it = it->left;
                 }
-            }
+
+                //draw nullptr
+                myfile << "nil" << i << "[shape=point];" << std::endl;
+                myfile << it->key << "->" << "nil" << i << ";" << std::endl; 
+                i++;
+
+                if(it->right != nullptr){
+                    myfile << it->key << "->" << it->right->key << ";" << std::endl;
+                    it = it->right;
+                }
+                else{
+                    //draw nullptr
+                    myfile << "nil" << i << "[shape=point];" << std::endl;
+                    myfile << it->key << "->" << "nil" << i << ";" << std::endl; 
+                    i++;
+                    myfile << it->key << "TEST TEST" << std::endl; //Bug Test
+                    it = it->p->right;   
+                } 
+                 
+            } 
             myfile << "}" << std::endl;
             myfile.close();
-        }
+        }          
 
 
                           
