@@ -136,7 +136,7 @@ class BST{
                 else{
                     child = (it->left);
                 }
-                
+
                 if (it == root_){ //check if it is root
                     root_ = child;
                 }
@@ -157,10 +157,14 @@ class BST{
                 Node* right_child = it->right;
                 right_child->p = it->p;
                 right_child->left = it->left;
-                if (it == it->p->left){ //again, check whether it is a left or right child (to set parent of it to right_child)
+                if(it != root_){
+                    if (it == it->p->left){ //again, check whether it is a left or right child (to set parent of it to right_child)
                         it->p->left = right_child;
-                } else {
-				        it->p->right = right_child;
+                    } else {
+                        it->p->right = right_child;
+                    }
+                } else{
+                    root_ = right_child;
                 }
                 it = nullptr;
                 delete it;
@@ -173,11 +177,16 @@ class BST{
 
                 //set parent of z
                 z->p = it->p;
-                if (it == it->p->left){ //again, check whether it is a left or right child (to set parent of it to right_child)
+                if(it != root_){
+                    if (it == it->p->left){ //again, check whether it is a left or right child (to set parent of it to right_child)
                     it->p->left = z;
+                    } else {
+				        it->p->right = z;
+                    }
                 } else {
-				    it->p->right = z;
+                    root_ = z;
                 }
+                
                 //set left child of z
                 z->left = it->left;
                 it->left->p = z;
@@ -201,7 +210,7 @@ class BST{
         void printBST_aux (Node* it, std::ofstream& stream) {
              if (it->left != nullptr) {
                 stream << it->key << "->" << it->left->key << ";" << std::endl; 
-                PrintBST3(it->left, stream);
+                printBST_aux(it->left, stream);
                 }
             else{
                 stream << "nil" << i << "[shape=point];" << std::endl;
@@ -210,7 +219,7 @@ class BST{
                 }
             if(it->right != nullptr) {
                 stream << it->key << "->" << it->right->key << ";" << std::endl;
-                PrintBST3(it->right, stream);
+                printBST_aux(it->right, stream);
             }
             else{
                 stream << "nil" << i << "[shape=point];" << std::endl;

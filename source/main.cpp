@@ -58,7 +58,7 @@ int main(){
     //example1.remove(d);
     //example1.remove(f);
     example1.remove(y);
-    example1.PrintBST4();
+    example1.printBST();
 
     return 0;
 }
