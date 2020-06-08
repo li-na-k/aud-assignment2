@@ -197,7 +197,7 @@ class BST{
         }
 
         void printBST () {
-            const char *path="/Users/linaklass/myfile.gv";
+            const char *path="../../myfile.gv";
             std::ofstream myfile(path);
             myfile << "digraph SampleBST{" << std::endl;
 
