@@ -34,7 +34,7 @@ class BST{
             }
         }
 
-        /* given a Tree or its Root, return a pointer to the node with the maximum and the minimum key,
+        /* given a tree's root, return a pointer to the node with the maximum and the minimum key,
         respectively the rightmost and the leftmost in the Tree. They both have complexity O(h).*/
         Node* minimum (Node* root) const {
             Node* min = new Node{};
