@@ -170,6 +170,7 @@ class BST{
                 //set right child of z
                 z->right = it->right;
                 it->right->p = z;
+                z->right->left = nullptr;
 
                 //set parent of z
                 z->p = it->p;
@@ -193,11 +194,10 @@ class BST{
                 std::cout<< "z->parent (10): " << z->p->key << std::endl;
                 std::cout<< "8->parent (7): " << root_->left->right->p->key << std::endl;
                 std::cout<< "2->parent (7): " << root_->left->left->p->key << std::endl;
-                
             }
         }
 
-        //Print (outputs a .gv file in dot language) siehe Folien (auch leere Knoten zeichnen!)
+        /*Print (outputs a .gv file in dot language) siehe Folien (auch leere Knoten zeichnen!)
         void PrintBST () {
             int i = 0;
             const char *path="/Users/linaklass/myfile.gv";
@@ -228,7 +228,7 @@ class BST{
             i++;
             myfile << "}" << std::endl;
             myfile.close();
-        }
+        }*/
 
         void PrintBST4 () {
             const char *path="/Users/linaklass/myfile.gv";
@@ -240,6 +240,7 @@ class BST{
             myfile << "}" << std::endl;
             myfile.close();
         }
+
         void PrintBST3 (Node* it, std::ofstream& stream) {
              if (it->left != nullptr) {
                 stream << it->key << "->" << it->left->key << ";" << std::endl; 
