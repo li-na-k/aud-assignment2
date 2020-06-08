@@ -17,6 +17,8 @@ int main(){
     e->key=11;
     Node* f = new Node{};
     f->key=9;
+    Node* g = new Node{};
+    g->key=1;
     example1.insert(x);
     example1.insert(y);
     example1.insert(xy);
@@ -24,6 +26,7 @@ int main(){
     example1.insert(d);
     example1.insert(e);
     example1.insert(f);
+    example1.insert(g);
 
     
     //Node* result = new Node{};
@@ -49,10 +52,11 @@ int main(){
     //Node* result = new Node{};
     //result = example1.search(6);*/
    
-    example1.PrintBST4();
+    
     std::cout<< example1.predecessor(x)->key << std::endl;
     std::cout<< example1.successor(y)->key << std::endl;
-    example1.remove(c);
+    example1.remove(d);
+    example1.remove(f);
     example1.remove(y);
     example1.PrintBST4();
 

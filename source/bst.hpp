@@ -124,34 +124,50 @@ class BST{
 				        it->p->right = nullptr;
                     }
                 }
+                it = nullptr;
                 delete it;
             //Case 2: If x has only one child
             } else if ((it->left == nullptr && it->right != nullptr) || (it->right == nullptr && it->left != nullptr)) {
                 //find child Node
-                Node* child = it;
+                
+                Node* child;
                 if(it->left == nullptr && it->right != nullptr){
-                    Node* child = (it->right);
+                    child = (it->right);
                 }
                 else{
-                    Node* child = (it->left);
+                    child = (it->left);
                 }
 
                 if (it == root_){ //check if it is root
                     root_ = child;
                 }
                 else{
-                    if (it == it->p->left){ //again, check whether it is left or right child
+                    if (it == it->p->left){ //again, check whether it is a left or right child
+                        child->p = it->p;
                         it->p->left = child;
                     } 
                     else {
+                        child->p = it->p;
 				        it->p->right = child;
                     }
                 }
+                it = nullptr;
                 delete it;
-            } else if (it->left != nullptr && it->right != nullptr && it->right->left == nullptr) {
-                //3rd case
+            } else if (it->left != nullptr && it->right != nullptr && it->right->left == nullptr) {//Case 3: If it has two children and its right child doesn’t have a left child
+                //it can be substituted with right child
+                Node* right_child = it->right;
+                right_child->p = it->p;
+                right_child->left = it->left;
+                if (it == it->p->left){ //again, check whether it is a left or right child (to set parent of it to right_child)
+                        it->p->left = right_child;
+                    } 
+                    else {
+				        it->p->right = right_child;
+                    }
+                it = nullptr;
+                delete it;
             } else if (it->right != nullptr && it->right->right != nullptr && it->right->left != nullptr && successor(it)->left == nullptr) {
-                //4th case
+                Node* succ = successor(it);
             }
         }
 
