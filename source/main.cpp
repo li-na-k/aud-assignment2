@@ -19,6 +19,7 @@ int main(){
     f->key=9;
     Node* g = new Node{};
     g->key=1;
+    /*insert example*/
     example1.insert(x);
     example1.insert(y);
     example1.insert(xy);
@@ -28,40 +29,37 @@ int main(){
     example1.insert(f);
     example1.insert(g);
 
+    /*search example (prints key of the searched node) */
+    std::cout<< "the key you searched for is: " << example1.search(6)->key << std::endl;
+
+    /* minimum and maximum */
+    std::cout<< "minimum of the tree: " << example1.minimum(x)->key << std::endl;
+    std::cout<< "maximum of the tree: " << example1.maximum(x)->key << std::endl;
     
-    //Node* result = new Node{};
-    //result = example1.search(6);
-    //std::cout << (example1.minimum())->key << std::endl; Das wieder rein
-    //std::cout << (example1.maximum())->key << std::endl;
-    //example1.PrintBST();
-/*
-    Node* z = new Node{};
-    z->key=7;
-    Node* a = new Node{};
-    a->key=10;
-    Node* b = new Node{};
-    b->key=22;
-    Node* c = new Node{};
-    c->key=99;
-    example1.insert(x, x);
-    example1.insert(y, y);
-    example1.insert(z, z);
-    example1.insert(a, a);
-    example1.insert(b, b);
-    example1.insert(c, c);
-    //Node* result = new Node{};
-    //result = example1.search(6);*/
-   
+    /*predecessor and successor example*/
+    std::cout<< "predecessor of given node: " << example1.predecessor(x)->key << std::endl;
+    std::cout<< "sucessor of given node: " << example1.successor(y)->key << std::endl;
     
-    std::cout<< example1.predecessor(x)->key << std::endl;
-    std::cout<< example1.successor(y)->key << std::endl;
-    //example1.remove(d);
-    //example1.remove(f);
-    
-    example1.remove(x);
-    example1.remove(e);
-    example1.remove(y);
-    example1.printBST();
+    /* to test different (border) cases of remove chose a case and un-comment it*/
+        /*to test case 1*/
+        //example1.remove(e);
+
+        /*to test case 2*/
+        //example1.remove(c);
+
+        /*to test case 3*/
+        //example1.remove(d);
+        //example1.remove(y);
+
+        /*to test case 4*/
+        //example1.remove(y);
+
+        /* removing the root*/
+        //example1.remove(x);
+        //example1.remove(e);
+        //example1.remove(y);
+
+        example1.printBST();
 
     return 0;
 }

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 
-int i = 0;
+int i = 0; //counter for drawing nullptr, used in printBST-method
 
 class BST{
     public:
@@ -75,20 +75,21 @@ class BST{
             }
         }
 
-        //TODO: Insert and Delete (node = root when function is called)
+        //inserts a node into tree. If node with the same key is already in the tree the new node is inserted left to the already existing node
         void insert (Node* new_node) {
             Node* it = new Node{};
-            it = root_;
+            it = root_; 
 
             bool is_inserted = false;
             bool found_place = false;
-            //was passiert wennx.key = y.key??
-            if (it == nullptr) {
+
+            if (it == nullptr) { //if tree is empty
                 root_ = new_node;
             } else {
                 while (!is_inserted) {
+                //find right place for new node
                     while(!found_place){
-                        if (new_node->key < it->key && it->left != nullptr) {
+                        if (new_node->key <= it->key && it->left != nullptr) {
                             it = it->left;
                         } else if (new_node->key > it->key && it->right != nullptr) {
                             it = it->right;
@@ -97,7 +98,8 @@ class BST{
                             found_place=true;
                         }
                     }
-                if (new_node->key < it->key) {
+                //insert node as left or right child of it
+                if (new_node->key <= it->key) {
                     it->left = new_node;
                     new_node->p = it;
                     is_inserted = true;
@@ -110,7 +112,7 @@ class BST{
             }
         }
 
-
+        /*removes Node out of tree and deletes it*/
         void remove (Node* it) {
             //Case 1: if it is a leaf
             if (it->left == nullptr && it->right == nullptr) { 
@@ -152,7 +154,8 @@ class BST{
                 }
                 it = nullptr;
                 delete it;
-            } else if (it->left != nullptr && it->right != nullptr && it->right->left == nullptr) {//Case 3: If it has two children and its right child doesn’t have a left child
+            //Case 3: If it has two children and its right child doesn’t have a left child
+            } else if (it->left != nullptr && it->right != nullptr && it->right->left == nullptr) {
                 //it can be substituted with right child
                 Node* right_child = it->right;
                 right_child->p = it->p;
@@ -168,6 +171,7 @@ class BST{
                 }
                 it = nullptr;
                 delete it;
+            //Case 4
             } else if (it->right != nullptr && it->right->right != nullptr && it->right->left != nullptr && successor(it)->left == nullptr) {
                 Node* z = successor(it);
                 //set right child of z
@@ -207,21 +211,23 @@ class BST{
             myfile.close();
         }
 
-        void printBST_aux (Node* it, std::ofstream& stream) {
+        void printBST_aux (Node* it, std::ofstream& stream) { //auxiliary method for printBST()
              if (it->left != nullptr) {
                 stream << it->key << "->" << it->left->key << ";" << std::endl; 
-                printBST_aux(it->left, stream);
+                printBST_aux(it->left, stream); //recursively draw left path until nullptr is reached
                 }
             else{
+                //draw nullptr
                 stream << "nil" << i << "[shape=point];" << std::endl;
                 stream << it->key << "->" << "nil" << i << ";" << std::endl; 
-                i++;
+                i++; //i is a global variable
                 }
             if(it->right != nullptr) {
                 stream << it->key << "->" << it->right->key << ";" << std::endl;
-                printBST_aux(it->right, stream);
+                printBST_aux(it->right, stream); //recursively draw right path until nullptr is reached
             }
             else{
+                //draw nullptr
                 stream << "nil" << i << "[shape=point];" << std::endl;
                 stream << it->key << "->" << "nil" << i << ";" << std::endl; 
                 i++;
