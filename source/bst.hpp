@@ -160,14 +160,40 @@ class BST{
                 right_child->left = it->left;
                 if (it == it->p->left){ //again, check whether it is a left or right child (to set parent of it to right_child)
                         it->p->left = right_child;
-                    } 
-                    else {
+                } else {
 				        it->p->right = right_child;
-                    }
+                }
                 it = nullptr;
                 delete it;
             } else if (it->right != nullptr && it->right->right != nullptr && it->right->left != nullptr && successor(it)->left == nullptr) {
-                Node* succ = successor(it);
+                Node* z = successor(it);
+                //set right child of z
+                z->right = it->right;
+                it->right->p = z;
+
+                //set parent of z
+                z->p = it->p;
+                if (it == it->p->left){ //again, check whether it is a left or right child (to set parent of it to right_child)
+                        it->p->left = z;
+                } else {
+				        it->p->right = z;
+                }
+
+                //set left child of z
+                z->left = it->left;
+                it->left->p = z;
+
+                it = nullptr;
+                delete it;
+                std::cout<< "successor (7): " << z->key << std::endl;
+                std::cout<< "root->left (7): " << root_->left->key << std::endl;
+                std::cout<< "root->left->left (2): " << root_->left->left->key << std::endl;
+                std::cout<< "root->left->right (8): " << root_->left->right->key << std::endl;
+                std::cout<< "root->left->right (9): " << root_->left->right->right->key << std::endl;
+                std::cout<< "z->parent (10): " << z->p->key << std::endl;
+                std::cout<< "8->parent (7): " << root_->left->right->p->key << std::endl;
+                std::cout<< "2->parent (7): " << root_->left->left->p->key << std::endl;
+                
             }
         }
 

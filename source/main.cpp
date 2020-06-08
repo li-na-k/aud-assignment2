@@ -55,8 +55,8 @@ int main(){
     
     std::cout<< example1.predecessor(x)->key << std::endl;
     std::cout<< example1.successor(y)->key << std::endl;
-    example1.remove(d);
-    example1.remove(f);
+    //example1.remove(d);
+    //example1.remove(f);
     example1.remove(y);
     example1.PrintBST4();
 
