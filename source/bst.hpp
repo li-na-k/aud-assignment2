@@ -129,7 +129,6 @@ class BST{
             //Case 2: If x has only one child
             } else if ((it->left == nullptr && it->right != nullptr) || (it->right == nullptr && it->left != nullptr)) {
                 //find child Node
-                
                 Node* child;
                 if(it->left == nullptr && it->right != nullptr){
                     child = (it->right);
@@ -137,7 +136,7 @@ class BST{
                 else{
                     child = (it->left);
                 }
-
+                
                 if (it == root_){ //check if it is root
                     root_ = child;
                 }
@@ -175,73 +174,31 @@ class BST{
                 //set parent of z
                 z->p = it->p;
                 if (it == it->p->left){ //again, check whether it is a left or right child (to set parent of it to right_child)
-                        it->p->left = z;
+                    it->p->left = z;
                 } else {
-				        it->p->right = z;
+				    it->p->right = z;
                 }
-
                 //set left child of z
                 z->left = it->left;
                 it->left->p = z;
 
                 it = nullptr;
                 delete it;
-                std::cout<< "successor (7): " << z->key << std::endl;
-                std::cout<< "root->left (7): " << root_->left->key << std::endl;
-                std::cout<< "root->left->left (2): " << root_->left->left->key << std::endl;
-                std::cout<< "root->left->right (8): " << root_->left->right->key << std::endl;
-                std::cout<< "root->left->right (9): " << root_->left->right->right->key << std::endl;
-                std::cout<< "z->parent (10): " << z->p->key << std::endl;
-                std::cout<< "8->parent (7): " << root_->left->right->p->key << std::endl;
-                std::cout<< "2->parent (7): " << root_->left->left->p->key << std::endl;
             }
         }
 
-        /*Print (outputs a .gv file in dot language) siehe Folien (auch leere Knoten zeichnen!)
-        void PrintBST () {
-            int i = 0;
-            const char *path="/Users/linaklass/myfile.gv";
-            std::ofstream myfile(path);
-            Node* it = new Node{};
-            it = root_;
-            
-            myfile << "digraph SampleBST{" << std::endl;
-            
-            if (it == nullptr) {
-                myfile << "nil0[shape=point];" << std::endl;
-            }
-            
-            while (it->left != nullptr) {
-                myfile << it->key << "->" << it->left->key << std::endl;
-                it = it->left;
-            }
-            myfile << "nil" << i << "[shape=point];" << std::endl;
-            myfile << it->key << "-> nil" << i << std::endl;
-            i++;
-            it = root_;
-            while (it->right != nullptr) {
-                myfile << it->key << "->" << it->right->key << std::endl;
-                it = it->right;
-            }
-            myfile << "nil" << i << "[shape=point];" << std::endl;
-            myfile << it->key << "-> nil" << i << std::endl;
-            i++;
-            myfile << "}" << std::endl;
-            myfile.close();
-        }*/
-
-        void PrintBST4 () {
+        void printBST () {
             const char *path="/Users/linaklass/myfile.gv";
             std::ofstream myfile(path);
             myfile << "digraph SampleBST{" << std::endl;
 
-            PrintBST3(root_, myfile);
+            printBST_aux(root_, myfile);
 
             myfile << "}" << std::endl;
             myfile.close();
         }
 
-        void PrintBST3 (Node* it, std::ofstream& stream) {
+        void printBST_aux (Node* it, std::ofstream& stream) {
              if (it->left != nullptr) {
                 stream << it->key << "->" << it->left->key << ";" << std::endl; 
                 PrintBST3(it->left, stream);
